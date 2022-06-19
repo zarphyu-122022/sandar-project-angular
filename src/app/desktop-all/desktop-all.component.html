@@ -1,0 +1,62 @@
+<div class="container">
+    <div class="row">
+        <h3 class="text-center  mt-3"><strong>Find a Desktop that's perfect for you ....</strong></h3>
+        <input type="text" class="form-control" placeholder="What are you looking for?">
+        <div class="row mt-3">
+            <div class="col-4" *ngFor="let desktop of desktop_form ">
+                <a class="text-decoration-none text-black">
+                    <div class="card mr-2 mb-3 ">
+                        <div class="row">
+                            <div class="col-8">
+                                <p>Instock : {{desktop.instock}}</p>
+
+                            </div>
+                            <!-- <div class="col-2 mt-1">
+                                    <button class="btn btn-block btn-secondary "   (click)="delete()">Delete</button>
+                                </div> -->
+                        </div>
+
+                        <div class="card-body">
+                            <img class="card-img-top" [src]="url" alt="Card image cap">
+                            <h5 class="card-title mt-4 text-center"><strong>{{desktop.brand_name}}</strong></h5>
+                            <p>{{desktop.processor}},{{desktop.operation}} ,
+                                {{desktop.memory}},{{desktop.brand_type}},{{desktop.graphic}}</p>
+                            <p class="text-center bold mt-5"><strong>${{desktop.price}}.00</strong></p>
+                            <div class="row">
+                                <div class="col-6">
+                                    
+
+                                    <button class="btn btn-secondary btn-block form-control mr-3 " [routerLink]="['/detail']" [queryParams]="{
+                                        brand_id:desktop.brand_id,
+                                        brand_name:desktop.brand_name,
+                                        brand_type:desktop.brand_type,
+                                        processor:desktop.processor,
+                                        prosessor_generation:desktop.prosessor_generation,
+                                        memory:desktop.memory,
+                                        operation:desktop.operation,
+                                        graphic:desktop.graphic,
+                                        screen_size:desktop.screen_size,
+                                        weight:desktop.weight,
+                                        color:desktop.color,
+                                        instock:desktop.instock,
+                                        price:desktop.price,
+                                        otherfeature:desktop.otherfeature,
+                                        otherinclude:desktop.otherinclude
+                                        
+                                     }">View Detail</button>
+
+
+                                </div>
+                                <div class="col-6">
+                                    <button class="btn btn-secondary btn-block form-control" (click)="addtoCart(desktop)">Add to Cart</button>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,35 @@
+<section class="row justify-content-center align-content-center">
+    <!-- <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong>{{errorMessage}}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div> -->
+    <div class="w-100"></div>
+    <div class="col-md-4 border mt-5 rounded-3">
+        <h3 class="text-center mt-3">Sign In Form</h3>
+        <form >
+            <div class="form-group">
+                <label for="">Email</label>
+                <div class="input-group">
+                    <input type="email" placeholder="Enter your email address" class="form-control"  
+                         required >
+                </div>
+                <!-- <span *ngIf="password.errors?.password" class="text-danger">Wrong is password</span><br>
+                <span *ngIf="password.invalid && password.touched" class="text-danger">password is required</span> -->
+            </div>
+            <div class="form-group mt-3">
+                <label for="">Password</label>
+                <div class="input-group">
+                    <input type="password" placeholder="Enter your password" class="form-control"  
+                        name="password" required >
+                </div>
+                <!-- <span *ngIf="password.errors?.password" class="text-danger">Wrong is password</span><br>
+                <span *ngIf="password.invalid && password.touched" class="text-danger">password is required</span> -->
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-block btn-primary form-control mt-3 mb-3">SignIn</button>
+            </div>
+        </form>
+    </div>
+</section>

@@ -1,0 +1,78 @@
+<div class="container">
+    <div class="row">
+        <h3 class="text-center  mt-3"><strong>Find a laptop that's perfect for you ....</strong></h3>
+        <input type="text" class="form-control" placeholder="What are you looking for?" [(ngModel)]="brand_name_filter">
+        <div class="row mt-3">
+            <div class="col-4" *ngFor="let laptop of laptop_form  | laptopFilter : brand_name_filter  ;index as i ">
+                <a class="text-decoration-none text-black">
+                    <div class="card mr-2 mb-3 ">
+                        <div class="row">
+                            <div class="col-8">
+                                <p>Instock : {{laptop.instock}}</p>
+
+                            </div>
+                            <div class="col-3 mt-1">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button class="btn btn-block btn-secondary" routerLink="/edit" (click)="edit(laptop.brand_id ,i)"><i
+                                                class="fa fa-edit"></i></button>
+
+                                    </div>
+                                    <div class="col-6">
+                                        <button class="btn btn-block btn-danger " (click)="delete(laptop.brand_id)"><i
+                                                class="fa fa-trash"></i></button>
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <img class="card-img-top" [src]="laptop.image" target="_blank" alt="Card image cap">
+
+
+                            <h5 class="card-title mt-4 text-center"><strong>{{laptop.brand_name}}</strong></h5>
+                            <p>{{laptop.processor}}, {{laptop.processorGeneration}},{{laptop.operation}} ,
+                                {{laptop.memory}},{{laptop.brand_type}},{{laptop.graphic}}</p>
+                            <p class="text-center bold mt-5"><strong>${{laptop.price}}.00</strong></p>
+                            <div class="row">
+                                <div class="col-6">
+
+                                    <!-- <button class="btn btn-secondary btn-block form-control mr-3 " [routerLink]="['/detail']" [queryParams]="{
+                                            brand_id:laptop.brand_id,
+                                            brand_name:laptop.brand_name,
+                                            brand_type:laptop.brand_type,
+                                            processor:laptop.processor,
+                                            prosessor_generation:laptop.prosessor_generation,
+                                            memory:laptop.memory,
+                                            operation:laptop.operation,
+                                            graphic:laptop.graphic,
+                                            screen_size:laptop.screen_size,
+                                            weight:laptop.weight,
+                                            color:laptop.color,
+                                            instock:laptop.instock,
+                                            price:laptop.price,
+                                            otherfeature:laptop.otherfeature,
+                                            otherinclude:laptop.otherinclude
+                                            
+                                         }">View Detail</button> -->
+                                    <button class="btn btn-secondary btn-block form-control mr-3 "
+                                        [routerLink]="['/detail']" [state]="laptop">View Detail</button>
+
+                                </div>
+                                <div class="col-6">
+                                    <button class="btn btn-secondary btn-block form-control"
+                                        (click)="addtoCart(laptop)">Add to Cart</button>
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

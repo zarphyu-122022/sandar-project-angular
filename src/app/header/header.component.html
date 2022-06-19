@@ -1,0 +1,70 @@
+<div class="container bg-white">
+    <div class="row">
+        <div class="col-9">
+            <nav class="navbar navbar-expand-lg  navbar-light bg-light ">
+                <a class="navbar-brand  ">
+                    <img class="rounded-circle "
+                        src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ad/HP_logo_2012.svg/1200px-HP_logo_2012.svg.png"
+                        alt="" width="50" height="45">
+                </a>
+                <ul class="navbar-nav ">
+                    <li class="nav-item active">
+                        <a class="nav-link" routerLinkActive="active" [routerLink]="['/home']">Home</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" routerLink="/laptop">Laptop</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" routerLink="/desktop">Desktop</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" routerLink="/monitor">Monitor</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" routerLink="/desktop">Printer</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" routerLink="/desktop">Gaming</a>
+                    </li>
+                    <li class="nav-item ">
+                        <a class="nav-link" routerLink="/desktop">Accessories</a>
+                    </li>
+                </ul>
+
+            </nav>
+
+        </div>
+        <div class="col-3 mt-2">
+            <form action="" class="form-inline ">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-4">
+                            <button class="btn btn-secondary text-center " routerLink='/manage'
+                                *ngIf="authService._login">Managed</button>
+
+                        </div>
+                        <div class="col-4">
+                            <i style="font-size: 30px;" [routerLink]="['/add-to-card']" class="fa fa-shopping-cart mt-2"
+                                data-toggle="tooltip" data-placement="bottom" title="Add to cart"></i>
+                            <div style="font-size: 10px;" class="badge bg-danger">{{totalItem}}</div>
+
+
+                        </div>
+
+
+                        <div class="col-4">
+                            <button class="btn btn-secondary text-center mr-2 " routerLink="/signin"
+                                (click)="LogInorLogOut()">
+                                {{this.authService._login ? 'Log Out' :'Login'}}</button>
+
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
