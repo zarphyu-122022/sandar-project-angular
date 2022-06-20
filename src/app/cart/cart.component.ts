@@ -25,6 +25,10 @@ export class CartComponent implements OnInit {
     this.cartService.removeCart(item)
 
   }
+  checkOut(productItem:any){
+    console.log(productItem)
+
+  }
 
   emptyCart(){
     this.cartService.removeAllCart()

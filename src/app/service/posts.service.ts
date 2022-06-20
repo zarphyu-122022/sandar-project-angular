@@ -41,9 +41,7 @@ export class PostService {
 
     }
 
-    // findById(brand_id:number){
-    //     return this._laptop.find(laptop => laptop.brand_id === brand_id);
-    //   }
+   
 
     edit(id:number,laptop :Laptop){
         this.http.put<{laptop :Laptop}>('https://final-project-angular-ecbc8-default-rtdb.firebaseio.com/posts/'+id+'.json',laptop).subscribe(
@@ -51,7 +49,6 @@ export class PostService {
                 console.log(res)
             }
         )
-    //console.log('https://final-project-angular-ecbc8-default-rtdb.firebaseio.com/posts/'+id+'.json')
         
 
     }

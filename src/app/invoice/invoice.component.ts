@@ -1,3 +1,5 @@
+import { CartServiceService } from 'src/app/service/cart-service.service';
+import { Laptop } from 'src/app/models/laptop.model';
 import { switchMap } from 'rxjs';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
@@ -10,23 +12,18 @@ import { InvoiceService } from '../service/invoice.service';
   styleUrls: ['./invoice.component.css']
 })
 export class InvoiceComponent implements OnInit {
-  ngOnInit(): void {}
+  public product:any =[];
+  public grantTotal :number=0 ;
 
-  // invoice: Invoice |any;
+  
 
-  // constructor(private invoiceService: InvoiceService, private route: ActivatedRoute) { }
-
-  // ngOnInit(): void {
-  //   this.route.params.pipe(
-  //     switchMap(
-  //       (params: Params) => {
-  //         let id = params['id'];
-  //         return this.invoiceService.findById(+id)
-  //       }
-  //     )
-  //   ).subscribe(
-  //     invoice => this.invoice = invoice
-  //   )
-  // }
+  constructor(private CartService:CartServiceService){}
+  ngOnInit(): void {
+    this.CartService.getProduct()
+    .subscribe(res =>{
+      this.product =res;
+      this.grantTotal =this.CartService.getTotalPrice();
+    })
+  }
 
 }

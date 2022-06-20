@@ -9,6 +9,7 @@ import { AuthServiceService } from '../service/auth-service.service';
   styleUrls: ['./sign-in-form.component.css']
 })
 export class SignInFormComponent implements OnInit {
+  signInForm:FormGroup | any;
 
   errorMessage: any;
 
@@ -16,14 +17,16 @@ export class SignInFormComponent implements OnInit {
     private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.signInForm =new FormGroup({
+      'email':new FormControl(null,[Validators.required]),
+      'password':new FormControl(null,[Validators.required])
+    })
   }
 
-  signIn(signInForm: NgForm){
+  signIn(signInForm:FormGroup){
+    console.log(signInForm.value)
     
-    // this.errorMessage = null;
-    this.authService.LogInorLogOut()
 
-    signInForm.reset();
   }
 
 }

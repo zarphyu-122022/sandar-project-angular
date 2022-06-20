@@ -23,12 +23,12 @@
                     <li class="nav-item ">
                         <a class="nav-link" routerLink="/desktop">Printer</a>
                     </li>
-                    <li class="nav-item ">
+                    <!-- <li class="nav-item ">
                         <a class="nav-link" routerLink="/desktop">Gaming</a>
                     </li>
                     <li class="nav-item ">
                         <a class="nav-link" routerLink="/desktop">Accessories</a>
-                    </li>
+                    </li> -->
                 </ul>
 
             </nav>
@@ -38,11 +38,7 @@
             <form action="" class="form-inline ">
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-4">
-                            <button class="btn btn-secondary text-center " routerLink='/manage'
-                                *ngIf="authService._login">Managed</button>
-
-                        </div>
+                        
                         <div class="col-4">
                             <i style="font-size: 30px;" [routerLink]="['/add-to-card']" class="fa fa-shopping-cart mt-2"
                                 data-toggle="tooltip" data-placement="bottom" title="Add to cart"></i>
@@ -56,6 +52,11 @@
                             <button class="btn btn-secondary text-center mr-2 " routerLink="/signin"
                                 (click)="LogInorLogOut()">
                                 {{this.authService._login ? 'Log Out' :'Login'}}</button>
+
+                        </div>
+                        <div class="col-4">
+                            <button class="btn btn-secondary text-center " routerLink='/manage'
+                                *ngIf="authService._login">Managed</button>
 
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Laptop } from 'src/app/models/laptop.model';
 import { HttpClient } from '@angular/common/http';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule, FormArray, NgForm } from '@angular/forms';
@@ -29,6 +29,8 @@ export class LaptopFormComponent implements OnInit {
   img: string = '';
   selectImage: any = null;
 
+  laptop:Laptop | any;
+
   constructor(private laptopService: LaptopServiceService, private http: HttpClient,
     private postService: PostService, private route: ActivatedRoute) { }
 
@@ -57,6 +59,15 @@ export class LaptopFormComponent implements OnInit {
     //   this.getLaptop(id);
     // })
 
+    // this.route.params.subscribe(
+    //   (params :Params)=>{
+    //     let id=params['brand_id']
+    //     if(id){
+    //       this.laptop=this.postService.edit(+id,this.laptop)
+    //     }
+
+    //   }
+    // )
 
 
   }

@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
-import {HttpClientModule } from '@angular/common/http'
+import {HttpClientModule } from '@angular/common/http';
+// import {AngularFireModule} from '@angular/fire';
+// import {AngularFireDatabaseModule} from '@angularfire/database'
 
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './header/header.component';
@@ -28,6 +30,7 @@ import { MonitorComponent } from './monitor/monitor.component';
 import { MonitorAllComponent } from './monitor/monitor-all/monitor-all.component';
 import { MonitorDetailComponent } from './monitor/monitor-detail/monitor-detail.component';
 import { MonitorFormComponent } from './monitor/monitor-form/monitor-form.component';
+import { environment } from 'src/environments/environment.prod';
 @NgModule({
   declarations: [
     AppComponent,
@@ -61,7 +64,10 @@ import { MonitorFormComponent } from './monitor/monitor-form/monitor-form.compon
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    // AngularFireModule.initializeApp(environment.firebaseConfig),
+    // AngularFireDatabaseModule
+    
     
 
     

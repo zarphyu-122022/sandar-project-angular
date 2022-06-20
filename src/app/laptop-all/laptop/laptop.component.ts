@@ -49,26 +49,9 @@ export class LaptopComponent implements OnInit {
     this.router.navigate(['/edit', id])
     console.log(this.laptop_form[index])
 
-    this.postService.edit(id,this.laptop)
+    this.postService.edit(id,this.laptop_form[index])
 
-    // this.laptopForm.setValue({
-    //   brand_id: this.laptop_form[index].brand_id,
-    //   brand_name: this.laptop_form[index].brand_name,
-    //   brand_type: this.laptop_form[index].brand_type,
-    //   color: this.laptop_form[index].color,
-    //   graphic: this.laptop_form[index].graphic,
-    //   image: this.laptop_form[index].image,
-    //   instock: this.laptop_form[index].instock,
-    //   memory: this.laptop_form[index].memory,
-    //   operation: this.laptop_form[index].operation,
-    //   otherinclude: this.laptop_form[index].otherinclude,
-    //   price: this.laptop_form[index].price,
-    //   processor: this.laptop_form[index].processor,
-    //   processorGeneration: this.laptop_form[index].processorGeneration,
-    //   screen_size: this.laptop_form[index].screen_size,
-    //   weight: this.laptop_form[index].weight,
-
-    // })
+    
 
   }
 

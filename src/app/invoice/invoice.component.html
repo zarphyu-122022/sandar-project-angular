@@ -3,28 +3,26 @@
         <div class="invoice">
             <h5 class="text-center mt-3"><strong>Invoice</strong></h5>
             <hr>
-            <p><strong>Invoice ID : </strong> </p>
             <p><strong>Invoice Date : </strong> </p>
 
             <table class="table table-bordered">
                 <thead class="thead-light">
                     <tr>
+                        <th>No</th>
                         <th>Product Name</th>
-                        <th>Size</th>
-                        <th>Color</th>
                         <th>Unit Price</th>
                         <th>Quantity</th>
                         <th>Total Price</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr >
+                    <tr *ngFor="let productItem of product ; let i=index">
                         <td></td>
-                        <td class="text-right"></td>
-                        <td class="text-right"></td>
-                        <td class="text-right"></td>
-                        <td class="text-right"></td>
-                        <td class="text-right"> MMK</td>
+                        <td class="text-right">{{i+1}}</td>
+                        <td class="text-right">{{productItem.brand_name}}</td>
+                        <td class="text-right">{{productItem.price}}MMK</td>
+                        <td class="text-right">{{productItem.quantity}}</td>
+                        <td class="text-right"> {{productItem.total}}MMK</td>
                     </tr>
                 </tbody>
                 <tfoot>
