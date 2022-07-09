@@ -1,30 +1,49 @@
 <div class="container">
     <h3><strong>CHECK OUT</strong></h3>
-    <form action="">
+    <form action="" [formGroup]="ckeckOut">
         <div class="form-group mt-3">
             <h5>About of you</h5>
-            <input type="text" name="" id="" placeholder="First Name" class="form-control mt-2">
-            <input type="text" name="" id="" placeholder="Last Name" class="form-control mt-2">
-            <input type="email" name="" id="" placeholder="Email Address" class="form-control mt-2">
-            <input type="number" name="" id="" placeholder="Phone" class="form-control mt-2">
+            <input type="text" name="" id="" placeholder="First Name" class="form-control mt-2" formControlName="fname">
+            <input type="text" name="" id="" placeholder="Last Name" class="form-control mt-2" formControlName="lname">
+            <input type="email" [class.is-invalid] = "ckeckOut.get('email').invalid && ckeckOut.get('email').touched" 
+            placeholder="Email" class="form-control mt-2" formControlName="email">
+                <!-- <span class="text-danger" *ngIf="email.invalid  &&(email.dirty || email.touched)">Please enter your Email Format</span> -->
+            <input type="number" name="" id="" placeholder="Phone" class="form-control mt-2" formControlName="phone">
         </div>
         <div class="form-group mt-3">
             <h5>Shipping Address</h5>
-            <input type="text" name="" id="" placeholder="Street Address" class="form-control mt-2">
-            <input type="text" name="" id="" placeholder="Apartment Number" class="form-control mt-2">
-            <input type="email" name="" id="" placeholder="City" class="form-control mt-2">
+            <input type="text" name="" id="" placeholder="Street Address" class="form-control mt-2" formControlName="street">
+            <input type="text" name="" id="" placeholder="Apartment Number" class="form-control mt-2" formControlName="apartment">
+            <input type="email" name="" id="" placeholder="City" class="form-control mt-2" formControlName="city">
+            <input type="number" name="" id="" placeholder="Phone" class="form-control mt-2" formControlName="sphone">
         </div>
         <div class="form-group mt-3">
             <h5>Billing Address</h5>
-            <input type="text" name="" id="" placeholder="Street Address" class="form-control mt-2">
-            <input type="text" name="" id="" placeholder="Apartment Number" class="form-control mt-2">
-            <input type="email" name="" id="" placeholder="City" class="form-control mt-2">
-            <input type="number" name="" id="" placeholder="Phone" class="form-control mt-2">
+            <input type="text" name="" id="" placeholder="Street Address" class="form-control mt-2" formControlName="billstreet">
+            <input type="text" name="" id="" placeholder="Apartment Number" class="form-control mt-2" formControlName="billapartment">
+            <input type="email" name="" id="" placeholder="City" class="form-control mt-2" formControlName="billcity">
+            <input type="number" name="" id="" placeholder="Phone" class="form-control mt-2" formControlName="billphone">
         </div>
         <div class="form-group">
-            <button class="btn btn-block btn-secondary form-control mt-3"  (click)="invoice()">Comfirm Order</button>
+            <button class="btn btn-block btn-secondary form-control mt-3" [disabled]="!ckeckOut.valid" (click)="checkOut(content)">Check Out</button>
         </div>
     </form>
 
 
 </div>
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h6 class="modal-title" id="modal-basic-title">Alert</h6>
+        <button type="button" class="close btn-outline-danger btn btn-block" aria-label="Close"
+            (click)="d('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p><strong>Do you want to give feedback?</strong> </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">Cancel</button>
+        <button type="button" class="btn btn-outline-dark" (click)="c('yes')">Yes</button>
+    </div>
+</ng-template>

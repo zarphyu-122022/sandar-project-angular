@@ -6,15 +6,27 @@ import { Laptop } from '../models/laptop.model';
   pure: false
 })
 export class LaptopFilterPipe implements PipeTransform {
-  transform(laptop: Laptop[], brand_name: string): any[] {
-    if (!laptop || !brand_name) {
-      return laptop;
-    }
-
-    return laptop.filter(it => {
-      return it.brand_id.toLowerCase().includes(brand_name.toLowerCase);
-    });
+  transform(laptop:any[],brand_name:string):Laptop[] {
+      if(!laptop || !brand_name)
+        return laptop;
+      return laptop.filter(l =>l.brand_name.toUpperCase().includes(brand_name.toUpperCase()))
   }
+  
+    //   return laptop.filter(l =>l.brand_name.toUpperCase().includes(brand_name.toUpperCase()))
+//   transform(value: any[], brand_name: string,prop:string): any[] {
+//     const result:any=[];
+//     if (!value || brand_name==='' || prop==='') {
+//       return value;
+//     }
+
+//     value.forEach((a:any)=>{
+//       if(a[brand_name].trim().toLowerCase().includes(brand_name.toLowerCase())){
+//         result.push(a)
+//       }
+
+//     });
+//     return result;
+// }
 }
 
 

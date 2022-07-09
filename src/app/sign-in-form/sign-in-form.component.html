@@ -1,8 +1,35 @@
-<div class="row justify-content-center align-content-center">
-    <div class="col-md-4 border mt-5 rounded-3">
-        <form FormGroup="signInForm">
-            <h3 class="text-center mt-3">Sign In Form</h3>
+<div class="row container justify-content-center align-content-center">
+    <div class="col-5">
+        <form [formGroup]="loginFormCtrl">
+            <h4 class="text-center mt-4"><strong>Sign In Form</strong></h4>
+            <div class="form-group">
+                <label for="">Email</label>
+                <input type="text" class="form-control" formControlName="email" #email>
+            </div>
+            <div class="form-group mt-3">
+                <label for="">Password</label>
+                <input type="password" class="form-control" formControlName="password" #password>
+            </div>
+            <div class="form-group mt-3">
+                <button class="btn btn-block btn-primary form-control" type="submit" [disabled]="!loginFormCtrl.valid"
+                (click)="onLogin()"
+                >Sign In</button>
+            </div>
+        </form>
 
+    </div>
+
+</div>
+
+
+
+
+
+
+<!-- <div class="row justify-content-center align-content-center">
+    <div class="col-md-4 border mt-5 rounded-3">
+        <h3 class="text-center mt-3">Sign In Form</h3>
+        <div [formGroup]="ff">
             <div class="form-group">
                 <label for="">Email</label>
                 <input type="email" placeholder="Enter your email address" class="form-control" formControlName="email">
@@ -14,9 +41,9 @@
                     formControlName="password">
             </div>
             <div class="form-group">
-                <button type="text" class="btn btn-block btn-primary form-control mt-3 mb-3" 
+                <button type="text" class="btn btn-block btn-primary form-control mt-3 mb-3"
                     (click)="signIn(signInForm.value)">SignIn</button>
             </div>
-        </form>
+        </div>
     </div>
-</div>
+</div> -->

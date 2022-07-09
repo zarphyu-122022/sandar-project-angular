@@ -1,9 +1,9 @@
+import { Keyboard } from './models/keyboard.model';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import {HttpClientModule } from '@angular/common/http';
-// import {AngularFireModule} from '@angular/fire';
-// import {AngularFireDatabaseModule} from '@angularfire/database'
+import { provideAuth,getAuth } from '@angular/fire/auth';
 
 import { AppRoutingModule } from './app-routing.module';
 import { HeaderComponent } from './header/header.component';
@@ -12,10 +12,8 @@ import { FooterComponent } from './footer/footer.component';
 import { LaptopFilterPipe } from './filter/laptop-filter.pipe';
 import { LaptopAllComponent } from './laptop-all/laptop-all.component';
 import { DesktopFormComponent } from './desktop-all/desktop-form/desktop-form.component';
-import { DesktopDetailComponent } from './desktop-all/desktop-detail/desktop-detail.component';
 import { LaptopFormComponent } from './laptop-all/laptop-form/laptop-form.component';
 import { LaptopComponent } from './laptop-all/laptop/laptop.component';
-import { DesktopComponent } from './desktop-all/desktop/desktop.component';
 import { ViewDetailComponent } from './laptop-all/view-detail/view-detail.component';
 import { AppComponent } from './app.component';
 import { CustomerServiceComponent } from './customer-service/customer-service.component';
@@ -28,9 +26,30 @@ import { TremConditionComponent } from './trem-condition/trem-condition.componen
 import { DesktopAllComponent } from './desktop-all/desktop-all.component';
 import { MonitorComponent } from './monitor/monitor.component';
 import { MonitorAllComponent } from './monitor/monitor-all/monitor-all.component';
-import { MonitorDetailComponent } from './monitor/monitor-detail/monitor-detail.component';
 import { MonitorFormComponent } from './monitor/monitor-form/monitor-form.component';
-import { environment } from 'src/environments/environment.prod';
+import { PrinterComponent } from './printer/printer.component';
+import { PrinterFormComponent } from './printer/printer-form/printer-form.component';
+import { GamingComponent } from './gaming/gaming.component';
+import { GamingFormComponent } from './gaming/gaming-form/gaming-form.component';
+import { MouseComponent } from './accessories/mouse/mouse.component';
+import { KeyboardComponent } from './accessories/keyboard/keyboard.component';
+import { PenComponent } from './accessories/pen/pen.component';
+import { BagComponent } from './accessories/bag/bag.component';
+import { AudioComponent } from './accessories/audio/audio.component';
+import { initializeApp,provideFirebaseApp } from '@angular/fire/app';
+import { environment } from '../environments/environment';
+import { provideDatabase, getDatabase } from '@angular/fire/database';
+import { provideStorage } from '@angular/fire/storage';
+import { getStorage } from 'firebase/storage';
+import { AudiosComponent } from './accessories/audio/audios/audios.component';
+import { BagsComponent } from './accessories/bag/bags/bags.component';
+import { MousesComponent } from './accessories/mouse/mouses/mouses.component';
+import { PensComponent } from './accessories/pen/pens/pens.component';
+import { KeyboardsComponent } from './accessories/keyboard/keyboards/keyboards.component';
+import { AuthServiceService } from './service/auth-service.service';
+import {AngularFireModule} from '@angular/fire/compat';
+import { SignInFormComponent } from './sign-in-form/sign-in-form.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,9 +62,7 @@ import { environment } from 'src/environments/environment.prod';
     ViewDetailComponent,
     LaptopAllComponent,
     DesktopAllComponent,
-    DesktopComponent,
     DesktopFormComponent,
-    DesktopDetailComponent,
     LaptopFilterPipe,
     CustomerServiceComponent,
     AboutUsComponent,
@@ -56,17 +73,37 @@ import { environment } from 'src/environments/environment.prod';
     CheckoutComponent,
     MonitorComponent,
     MonitorAllComponent,
-    MonitorDetailComponent,
     MonitorFormComponent,
+    PrinterComponent,
+    PrinterFormComponent,
+    GamingComponent,
+    GamingFormComponent,
+    PenComponent,
+    KeyboardsComponent,
+    AudiosComponent,
+    BagsComponent,
+    MousesComponent,
+    PensComponent,
+    MouseComponent,
+    KeyboardComponent,
+    BagComponent,
+    AudioComponent,
+    SignInFormComponent
   ],
+
   imports: [
     BrowserModule,
     AppRoutingModule,
-    FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    // AngularFireModule.initializeApp(environment.firebaseConfig),
-    // AngularFireDatabaseModule
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    provideFirebaseApp(() => initializeApp(environment.firebase)),
+    provideDatabase(() => getDatabase()),
+    provideStorage(() => getStorage()),
+    provideAuth(() => getAuth()),
+
+   
     
     
 

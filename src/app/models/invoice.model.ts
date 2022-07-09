@@ -1,7 +1,7 @@
-export interface Invoice{
-    id: number;
-    invoiceDate: string;
-    subTotal: number;
-    tax: number;
-    total: number;
+export class Invoice{
+    id: number | undefined;
+    invoiceDate: Date | undefined;
+    subTotal: number | undefined;
+    tax: number | undefined;
+    total: number | undefined;
 }

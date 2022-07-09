@@ -1,0 +1,124 @@
+<div class="container mt-2">
+    <h3 class="text-center mt-2">Gaming Form</h3>
+    <form action="" [formGroup]="gaming_form_group">
+        <div class="row">
+            <div class="col-6">
+                <!-- <div class="form-group">
+                    <label for="">Brand ID</label>
+                    <input type="text" class="form-control" formControlName="brand_id">
+                </div> -->
+                <div class="form-group">
+                    <label for="">Brand Name</label>
+                    <select name="" id="" class="form-control" formControlName="brand_name">
+                        <option [value]="bname" *ngFor="let bname of brand_name">{{bname}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Brand Type</label>
+                    <select name="" id="" class="form-control" formControlName="brand_type">
+                        <option [value]="btype" *ngFor="let btype of brand_type">{{btype}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Processor</label>
+                    <select name="" id="" class="form-control" formControlName="processor">
+                        <option [value]="p" *ngFor="let p of processror">{{p}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Processor Generation</label>
+                    <select name="" id="" class="form-control" formControlName="processorGeneration">
+                        <option [value]="pg" *ngFor="let pg of processorGeneration">{{pg}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Menmory(RAM)</label>
+                    <select name="" id="" class="form-control" formControlName="memory">
+                        <option [value]="m" *ngFor="let m of menory">{{m}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Operation System</label>
+                    <select name="" id="" class="form-control" formControlName="operation">
+                        <option [value]="op" *ngFor="let op of operation">{{op}}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Graphic</label>
+                    <select name="" id="" class="form-control" formControlName="graphic">
+                        <option [value]="g" *ngFor="let g of graphic">{{g}}}</option>
+                    </select>
+                </div>
+                <!-- <div formArrayName="addfeature">
+                    <div class="row mt-1" *ngFor="let other of addfeature.controls;let i=index" [formGroupName]="i">
+                        <div class="col-10">
+                            <input type="text" name="" id="" class="form-control" formControlName="addingfeature">
+                        </div>
+                        <div class="col-2">
+                            <button class="form-control btn btn-danger" (click)="removefeature(i)">&times;</button>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn form-control btn-block btn-outline-secondary  mt-2"
+                        (click)="addOtherfeature()">Add Other Feature</button>
+                </div>
+                <div formArrayName="addinclude">
+                    <div class="row mt-1" *ngFor="let other of addinclude.controls;let i=index" [formGroupName]="i">
+                        <div class="col-10">
+                            <input type="text" name="" id="" class="form-control" formControlName="addinginclude">
+                        </div>
+                        <div class="col-2">
+                            <button class="form-control btn btn-danger" (click)="removeinclude(i)">&times;</button>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <button class="btn form-control btn-block btn-outline-secondary  mt-2"
+                        (click)="addOtherinclude()">Add Other Include</button>
+                </div> -->
+            </div>
+            <div class="col-6">
+                
+                <div class="form-group">
+                    <label for="">Screen Size</label>
+                    <select name="" id="" class="form-control" formControlName="screen_size">
+                        <option [value]="ss" *ngFor="let ss of screen_size">{{ss}}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Weight</label>
+                    <input type="text" class="form-control" formControlName="weight">
+                </div>
+                <div class="form-group">
+                    <label for="">Color</label>
+                    <select name="" id="" class="form-control" formControlName="color">
+                        <option [value]="c" *ngFor="let c of color">{{c}}}</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="">Instock</label>
+                    <input type="text" class="form-control" formControlName="instock">
+                </div>
+                <div class="form-group">
+                    <label for="">Price</label>
+                    <input type="text" class="form-control" formControlName="price">
+                </div>
+                <div class="form-group">
+                    <label for=""> Other Include</label>
+                    <select name="" id="" class="form-control" formControlName="otherinclude">
+                        <option [value]="include" *ngFor="let include of otherInclude">{{include}}</option>
+                    </select>
+                </div>
+                <div class="form-group mt-5">
+                    <input type="file" accept="image/*" (change)="selectedFile($event)">
+                </div>
+
+            </div>
+        </div>
+        <button class="btn btn-block btn-outline-success text-center  mt-2 form-control"
+            (click)="save(gaming_form_group)"> Save</button>
+    </form>
+</div>

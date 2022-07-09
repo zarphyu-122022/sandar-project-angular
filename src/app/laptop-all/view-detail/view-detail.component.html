@@ -2,7 +2,7 @@
     <div class="row mt-3">
         <div class="col-7">
             <div class="card-body">
-                <img class="card-img-top" [src]="laptop.image" alt="Card image cap">
+                <img class="card-img-top" [src]="laptop.profileImage" alt="Card image cap">
                 
                 
                 <!-- <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
@@ -32,25 +32,25 @@
             <p>COLOR &nbsp;{{laptop?.color}}</p>
             <hr>
             <ul>
-                <li>
+                <li *ngIf="laptop.processor">
                     <p><strong>{{laptop?.processor}}</strong></p>
                 </li>
-                <li>
+                <li *ngIf="laptop.processorGeneration">
                     <p><strong>{{laptop?.processorGeneration}}</strong></p>
                 </li>
-                <li>
+                <li *ngIf="laptop.operation">
                     <p><strong>{{laptop?.operation}}</strong></p>
                 </li>
-                <li>
+                <li *ngIf="laptop.screen_size">
                     <p><strong>{{laptop?.screen_size}}</strong></p>
                 </li>
-                <li>
+                <li *ngIf="laptop.graphic">
                     <p><strong>{{laptop?.graphic}}</strong></p>
                 </li>
-                <li>
+                <li *ngIf="laptop.memory">
                     <p><strong>{{laptop?.memory}}</strong></p>
                 </li>
-                <li>
+                <li *ngIf="laptop.weight">
                     <p><strong>{{laptop?.weight}}kg</strong></p>
                 </li>
             </ul>

@@ -3,14 +3,14 @@
     <form action="" [formGroup]="laptop_form_group">
         <div class="row">
             <div class="col-6">
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <label for="">Brand ID</label>
                     <input type="text" class="form-control" formControlName="brand_id">
-                </div>
+                </div> -->
                 <div class="form-group">
                     <label for="">Brand Name</label>
                     <select name="" id="" class="form-control" formControlName="brand_name">
-                        <option [value]="bname" *ngFor="let bname of brand_name">{{bname}}</option>
+                        <option [value]="bname" *ngFor="let bname of brand_names">{{bname}}</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -81,7 +81,7 @@
                 </div> -->
             </div>
             <div class="col-6">
-                
+
                 <div class="form-group">
                     <label for="">Screen Size</label>
                     <select name="" id="" class="form-control" formControlName="screen_size">
@@ -106,7 +106,7 @@
                     <label for="">Price</label>
                     <input type="text" class="form-control" formControlName="price">
                 </div>
-                
+
                 <div class="form-group">
                     <label for=""> Other Include</label>
                     <select name="" id="" class="form-control" formControlName="otherinclude">
@@ -114,14 +114,15 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <div class="row">
-                        <div class="col-6">
-                            <input type="file" class="form-control-file mt-5" formControlName="image" (change)=" onFileChanged($event)"
-                             accept="image/*" multiple  #image  >
-                        </div>
-                    </div>
+
+
+                    <input type="file" accept="image/*" (change)="selectedFile($event)" class="mt-5">
+                    <!-- <ng-container *ngIf="profileImage">
+                                <img [src]="profileImage" alt="" class="w-auto h-10rem border-100">
+                            </ng-container> -->
+
                 </div>
-                
+
 
             </div>
         </div>

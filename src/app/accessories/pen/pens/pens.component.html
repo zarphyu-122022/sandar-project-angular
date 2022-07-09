@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="row">
+        <h3 class="text-center  mt-3"><strong>Find a Pen that's perfect for you ....</strong></h3>
+        <input type="text" class="form-control" placeholder="What are you looking for?" [(ngModel)]="brand_name_filter">
+        <div class="row mt-3">
+            <div class="col-4" *ngFor="let accessories of pen_form.reverse()| laptopFilter :brand_name_filter">
+                <a class="text-decoration-none text-black">
+                    <div class="card mr-2 mb-3 ">
+                        <div class="row">
+                            <div class="col-8">
+                                <!-- <p>Instock : {{accessories.instock}}</p> -->
+
+                            </div>
+                            <div class="col-3 mt-1">
+                                <div class="row">
+                                    <div class="col-6" *ngIf="authService.isLoggedIn">
+                                        <button class="btn btn-block btn-outline-secondary"
+                                            (click)="edit(accessories)"><i class="fa fa-edit"></i></button>
+
+                                    </div>
+                                    <div class="col-6" *ngIf="authService.isLoggedIn">
+                                        <button class="btn btn-block btn-outline-danger "
+                                            (click)="delete(content,accessories)"><i class="fa fa-trash"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <img class="card-img-top" [src]="accessories.profileImage" alt="Card image cap">
+                            <h5 class="card-title mt-4 text-center"><strong>{{accessories.brand_name}}</strong></h5>
+                            <h5 class="text-center bold mt-5"><strong>${{accessories.price}}.00</strong></h5>
+                            <div class="row">
+                                <div class="col-6">
+                                    <button class="btn btn-outline-secondary btn-block form-control mr-3 "
+                                        [routerLink]="['/detail']" [state]="accessories">View Detail</button>
+                                </div>
+                                <div class="col-6">
+                                    <button class="btn btn-outline-secondary btn-block form-control "
+                                        (click)="addtoCart(accessories)">Add to cart</button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<ng-template #content let-c="close" let-d="dismiss">
+    <div class="modal-header">
+        <h6 class="modal-title" id="modal-basic-title">Delete Confirmation</h6>
+        <button type="button" class="close btn-outline-danger btn btn-block" aria-label="Close"
+            (click)="d('Cross click')">
+            <span aria-hidden="true">×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <p><strong>Are you sure to delete this?</strong> </p>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" (click)="d('Cross click')">Cancel</button>
+        <button type="button" class="btn btn-outline-dark" (click)="c('yes')">Yes</button>
+    </div>
+</ng-template>

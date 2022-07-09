@@ -1,7 +1,8 @@
-import { Router, ActivatedRoute } from '@angular/router';
-import { NgForm, FormGroup, FormControl, Validators } from '@angular/forms';
+import { AuthServiceService } from 'src/app/service/auth-service.service';
+import { Router } from '@angular/router';
+import { FormGroup, FormsModule, NgForm, FormControl, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { AuthServiceService } from '../service/auth-service.service';
+import { SignIn } from '../models/sign_in.model';
 
 @Component({
   selector: 'app-sign-in-form',
@@ -9,36 +10,47 @@ import { AuthServiceService } from '../service/auth-service.service';
   styleUrls: ['./sign-in-form.component.css']
 })
 export class SignInFormComponent implements OnInit {
-  signInForm:FormGroup | any;
+  loginFormCtrl: FormGroup;
 
-  errorMessage: any;
-
-  constructor(private authService: AuthServiceService, 
-    private router: Router, private route: ActivatedRoute) { }
-
-  ngOnInit(): void {
-    this.signInForm =new FormGroup({
-      'email':new FormControl(null,[Validators.required]),
-      'password':new FormControl(null,[Validators.required])
+  constructor(private LoginService: AuthServiceService, private router: Router) {
+    this.loginFormCtrl = new FormGroup({
+      email: new FormControl('', Validators.required),
+      password: new FormControl(null, Validators.required)
     })
   }
 
-  signIn(signInForm:FormGroup){
-    console.log(signInForm.value)
-    
+
+  ngOnInit(): void {
 
   }
 
+  onLogin() {
+    if (this.loginFormCtrl.invalid)
+      return;
+
+    this.LoginService.loginUser(this.loginFormCtrl.value.email, this.loginFormCtrl.value.password)
+    //   .then((result) => {
+
+    //     if (result == null) {
+    //       console.log('logging in...');
+    //       this.router.navigate(['/manage']);
+    //     }
+    //     else if (result.isValid == false) {
+    //       console.log('login error', result);
+    //     }
+    //   });
+    // }
+
+  }
 }
-     
-
-  
-
-  // sign(sign_In_form:FormGroup){
-  //   this.router.navigate(['/sign'])
 
 
-  // }
 
-  
+
+
+
+
+
+
+
 

@@ -1,49 +1,58 @@
 import { Desktop } from './../models/desktop.model';
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from "@angular/core";
-import { map } from 'rxjs/operators';
-import { LaptopServiceService } from './laptop-service.service';
+import { Monitor } from 'src/app/models/monitor.model';
+import { Injectable } from '@angular/core';
+import { child, Database, DatabaseReference, equalTo, get, listVal, objectVal, orderByChild, query, ref, remove, update } from '@angular/fire/database';
+import { map, Observable, iif, switchMap, of } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 
 export class DesktopService {
-    constructor(private http: HttpClient,private lapropService :LaptopServiceService) { }
+    readonly dbRef: DatabaseReference;
 
-    createAndstorePost(laptop: Desktop[]) {
-        this.http.
-            post('https://desktop-57906-default-rtdb.firebaseio.com/posts.json',
-                laptop)
-            .subscribe(response => {
-                console.log(response)
-            }
-            )
-
-
+  constructor(private readonly dbs: Database) {
+    this.dbRef = ref(dbs);
+  }
+  
+    saveUser(desktop: Desktop): Promise<void> {
+      const saveValue: any = {};
+      saveValue[`desktop/${desktop.brand_id}`] = desktop;
+      return update(this.dbRef, saveValue);
     }
-
-    fetchPost() {
-        return this.http.get<{ [key: string]: Desktop }>('https://desktop-57906-default-rtdb.firebaseio.com/posts.json')
-            .pipe(
-                map(response => {
-                    const postArray: Desktop[] = [];
-                    for (const key in response) {
-                        if (response.hasOwnProperty(key)) {
-                            postArray.push({ ...response[key], brand_id: key });
-                        }
-                    }
-                    return postArray
-
-                }
-                )
-            )
-
+  
+    findIdByUser(id: string) {
+      return get(child(this.dbRef, `desktop/${id}`))
+        .then(snapshot => {
+          const val = snapshot.val();
+          if (val) {
+            return { id, ...val }
+          }
+          return val;
+        });
     }
-
-    // deletePost(){
-    //     return this.http.delete('https://final-project-angular-ecbc8-default-rtdb.firebaseio.com/posts.json')
-    // }
+  
+    deleteById(id: string) {
+      return remove(child(this.dbRef, `desktop/${id}`));
+    }
+  
+    fetchAllUser() {
+      return objectVal<Monitor>(child(this.dbRef, 'desktop')).pipe(this.convertToUserResponse$);
+    }
+  
+    searchByName(name: string) {
+      return name ?
+        listVal<Monitor>(
+          query(child(this.dbRef, 'desktop'), orderByChild('name'), equalTo(name))
+          ).pipe(this.convertToUserResponse$) : this.fetchAllUser();
+    }
+  
+    private convertToUserResponse$(input$: Observable<any>): Observable<Array<Monitor>> {
+      return input$.pipe(
+        switchMap(resp => iif(() => !!resp, of(resp), of({}))),
+        map(resp => Object.keys(resp).map(key => ({ ...resp[key], id: key, })))
+      );
+    }
 
 
 }

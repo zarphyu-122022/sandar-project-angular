@@ -12,18 +12,13 @@ import { InvoiceService } from '../service/invoice.service';
   styleUrls: ['./invoice.component.css']
 })
 export class InvoiceComponent implements OnInit {
-  public product:any =[];
-  public grantTotal :number=0 ;
+  invoice :Invoice | any
+  
 
   
 
   constructor(private CartService:CartServiceService){}
   ngOnInit(): void {
-    this.CartService.getProduct()
-    .subscribe(res =>{
-      this.product =res;
-      this.grantTotal =this.CartService.getTotalPrice();
-    })
   }
 
 }

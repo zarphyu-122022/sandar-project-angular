@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { FeedBack } from '../models/feedback.model';
+import { FeedbackService } from '../service/feedback.service';
 
 @Component({
   selector: 'app-manage-admin',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./manage-admin.component.css']
 })
 export class ManageAdminComponent implements OnInit {
-
-  constructor() { }
+ feedback :FeedBack[] =[] ;
+  constructor(private feedbackService:FeedbackService) { }
 
   ngOnInit(): void {
-  }
+   this.feedbackService.fetchAllUser()
+   .subscribe(post => {
+    this.feedback = post;
+  })
 
+}
 }

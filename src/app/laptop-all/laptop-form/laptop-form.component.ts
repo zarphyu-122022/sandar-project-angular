@@ -1,11 +1,14 @@
-import { ActivatedRoute, Params } from '@angular/router';
+import { StorageService } from './../../service/storage.service';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Laptop } from 'src/app/models/laptop.model';
 import { HttpClient } from '@angular/common/http';
-import { FormControl, FormGroup, Validators, ReactiveFormsModule, FormArray, NgForm } from '@angular/forms';
+import { FormControl, FormGroup, Validators, ReactiveFormsModule, FormArray, NgForm, FormBuilder } from '@angular/forms';
 import { Component, OnInit, Pipe } from '@angular/core';
 import { LaptopServiceService } from 'src/app/service/laptop-service.service';
 import { PostService } from 'src/app/service/posts.service';
-import { switchMap } from 'rxjs';
+import { catchError, EMPTY, map, switchMap } from 'rxjs';
+import { DomSanitizer } from '@angular/platform-browser';
+import {  uuidv4 } from '@firebase/util';
 @Component({
   selector: 'app-laptop-form',
   templateUrl: './laptop-form.component.html',
@@ -13,8 +16,8 @@ import { switchMap } from 'rxjs';
 })
 export class LaptopFormComponent implements OnInit {
 
-  laptop_form_group: FormGroup | any;
-  brand_name = ['Spectre', 'ENVY', 'Pavilion', 'Essential Home', 'OMEN', 'ZBook', 'EliteBook', 'ProBook', 'VICTUS']
+  laptop_form_group!: FormGroup;
+  brand_names = ['Spectre', 'ENVY', 'Pavilion', 'Essential Home', 'OMEN', 'ZBook', 'EliteBook', 'ProBook', 'VICTUS']
   brand_type = ['Spectre X360 Laptops', 'Envy x360 Laptops', 'Envy 15', 'Envy 14']
   processror = ['Intel® Core™ i7 processor ', 'Intel® Core™ i5 processor']
   processorGeneration = ['11th Generation Intel® Core™ i7 processor', '11th Generation Intel® Core™ i5 processor']
@@ -28,11 +31,15 @@ export class LaptopFormComponent implements OnInit {
 
   img: string = '';
   selectImage: any = null;
+  userId: string = '';
 
   laptop:Laptop | any;
+  
 
-  constructor(private laptopService: LaptopServiceService, private http: HttpClient,
-    private postService: PostService, private route: ActivatedRoute) { }
+
+  constructor(private laptopService: LaptopServiceService,private readonly fb: FormBuilder, private http: HttpClient,
+    private postService: PostService,private readonly sanitizer: DomSanitizer,private readonly storageSrv: StorageService,
+     private route: ActivatedRoute,private router:Router) { }
 
   ngOnInit(): void {
     this.laptop_form_group = new FormGroup({
@@ -49,78 +56,88 @@ export class LaptopFormComponent implements OnInit {
       'color': new FormControl(null, [Validators.required]),
       'instock': new FormControl(null, [Validators.required]),
       'price': new FormControl(null, [Validators.required]),
-      'image': new FormControl(null, [Validators.required]),
+      'profileImage': new FormControl(null, [Validators.required]),
       'otherinclude': new FormControl(null, [Validators.required]),
+
+      
 
     })
 
-    // this.route.paramMap.subscribe(parameterMap => {
-    //   const id = parameterMap.get('id')
-    //   this.getLaptop(id);
-    // })
+    this.route.queryParams.pipe(
+      map(params => {
+        this.userId = params['id'];
+        console.log(this.userId)
+        if (this.userId) {
+          return this.postService.findIdByUser(this.userId).then((data: any) => this.initializeForm(data));
+        }
+        this.initializeForm();
+        return EMPTY;
+      }),
+    ).subscribe();
 
-    // this.route.params.subscribe(
-    //   (params :Params)=>{
-    //     let id=params['brand_id']
-    //     if(id){
-    //       this.laptop=this.postService.edit(+id,this.laptop)
-    //     }
-
-    //   }
-    // )
-
+      
 
   }
+  selectedFile($event: any) {
+    const file = $event.target.files[0];
+    if (file) {
+      this.laptop_form_group.get('profileImageFile')?.setValue(file);
+      this.laptop_form_group.get('profileImage')?.setValue(this.sanitizer.bypassSecurityTrustUrl(URL.createObjectURL(file)));
+    }
 
-  // private getLaptop(id: any) {
-  //   if (id == 0) {
-  //     this.laptop = {
-  //       brand_id: null,
-  //       brand_name: null,
-  //       brand_type: null,
-  //       processor: null,
-  //       processorGeneration: null,
-  //       memory: null,
-  //       operation: null,
-  //       graphic: null,
-  //       screen_size: null,
-  //       weight: null,
-  //       color: null,
-  //       instock: null,
-  //       price: null,
-  //       otherinclude: null,
-  //       image: null
+  }
+  get profileImage() {
+    return this.laptop_form_group.get('profileImage')?.value;
+  }
+ 
 
-  //     };
-  //     }else{
-  //       this.laptopService.laptop
-  //     }
-  //   }
-
-  // }
+  
 
 
   save(laptop_form_group: FormGroup) {
-    const fv = laptop_form_group.value;
-    fv.image = this.img;
-    this.postService.createAndstorePost(fv);
-    console.log(fv)
+    const formValue = { ...this.laptop_form_group.value };
+    const uuid = uuidv4();
+    if (!formValue.brand_id) formValue.brand_id = uuid;
+
+    this.storageSrv.uploadImage(formValue.profileImageFile, uuid).pipe(
+      switchMap(profileUrl => {
+        if (profileUrl || formValue.profileImageFile === null) formValue.profileImage = profileUrl;
+        delete formValue.profileImageFile;
+
+
+        return this.postService.saveUser(formValue);
+      })).subscribe();
+
     laptop_form_group.reset()
+    this.router.navigate(['/laptop'])
 
   }
 
-  onFileChanged(event: any) {
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader
-      reader.onload = (e: any) => this.img = e.target.result;
-      reader.readAsDataURL(event.target.files[0])
-      this.selectImage = event.target.files[0]
-    }
-
+  
+  private initializeForm(initData?: Laptop) {
+    this.laptop_form_group = this.fb.group({
+      brand_id: initData?.brand_id,
+      brand_name:initData?.brand_name,
+      brand_type: initData?.brand_type,
+      processor: initData?.processor,
+      processorGeneration:initData?.processorGeneration,
+      memory:initData?.memory,
+      operation:initData?.operation,
+      graphic:initData?.graphic,
+      screen_size:initData?.screen_size,
+      weight:initData?.weight,
+      color:initData?.color,
+      instock:initData?.instock,
+      price:initData?.price,
+      otherinclude:initData?.otherinclude,
+      profileImage: initData?.profileImage,
+      profileImageFile: '',
+    })
   }
 
 
 }
+
 
 
 

@@ -13,6 +13,6 @@ export interface Laptop{
     instock:string;
     price:string;
     otherinclude:string;
-    image:any
+    profileImage:any
 
 }

@@ -3,7 +3,7 @@ export interface Monitor{
     brand_name:string;
     brand_type:string;
     processor:string;
-    prosessor_generation:string;
+    processorGeneration:string;
     memory:string;
     operation:string;
     graphic:string;
@@ -12,8 +12,7 @@ export interface Monitor{
     color:string;
     instock:string;
     price:string;
-    otherfeature:string;
     otherinclude:string;
-    image:any
+    profileImage:any
 
 }

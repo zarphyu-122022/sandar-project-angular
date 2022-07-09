@@ -1,33 +1,42 @@
 import { Injectable } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { retry } from 'rxjs';
-import { SignIn } from '../models/sign_in.model';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthServiceService {
-  private _isLogin=false;
-  singIn :SignIn[] |any;
-  email ='sandar@gmail.com';
-  paaaword =12345;
+  isLoggedIn: boolean;  
 
+  constructor(private afAuth: AngularFireAuth, private router : Router,  private afs: AngularFirestore) {
+    this.isLoggedIn = false;
+  }
 
-  LogInorLogOut(){
-
-    return this._isLogin =!this._isLogin
-  //  if(this.singIn.email == this.email && this.singIn.pwssword == this.paaaword){
-  //    this._isLogin =!this._isLogin ;
-
-  //  }
-   
+  loginUser(email: string, password: string): Promise<any> {
+      return this.afAuth.signInWithEmailAndPassword(email,password)
+        .then(() => {
+            // console.log('Auth Service: loginUser: success');
+            // console.log(email,password)
+            this.isLoggedIn=true;
+             this.router.navigate(['/manage']);
+        })
+        .catch(error => {
+          console.log('Auth Service: login error...');
+          console.log('error code', error.code);
+          console.log('error', error);
+          if (error.code)
+              return { isValid: false, message: error.message };
+          else
+              return { isValid: false, message : "Login Error"}
+        });
+  }
+//   SignOut() {
+//     // return this.afAuth.signOut().then(() => {
+//       this.isLoggedIn
+//       this.router.navigate(['/home']);
     
-  }
   
-  get _login(){
-    return this._isLogin
-  }
-
-
-  constructor() { }
+// }
 }

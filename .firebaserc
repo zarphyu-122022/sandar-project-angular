@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "final-project-angular-ecbc8": {
+      "hosting": {
+        "final-project-laptop": [
+          "final-project-angular-ecbc8"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "final-project-angular-ecbc8"
+  }
+}

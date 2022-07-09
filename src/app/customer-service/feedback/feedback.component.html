@@ -1,5 +1,8 @@
 <div class="container">
-    <h5><strong>Feedback & Complations</strong></h5>
-    <textarea name="" id="" cols="30" rows="10" class="form-control mt-4"></textarea>
-    <button class="btn btn-block btn-secondary mt-4">Send your Feedback & Complations</button>
+    <div [formGroup]="feedback">
+        <h5><strong>Feedback & Complations</strong></h5>
+        <textarea name="" id="" cols="30" rows="10" class="form-control mt-4" formControlName="feedback"></textarea>
+        <button class="btn btn-block btn-secondary mt-4" (click)="feed(feedback)">Send your Feedback &
+            Complations</button>
+    </div>
 </div>
